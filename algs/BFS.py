@@ -3,7 +3,6 @@ from algs.SuperTraverser import SuperTraverser
 class BFS(SuperTraverser):
     def __init__(self, graph):
         super().__init__(graph)
-        self.visits = 0
 
     def traverse(self, start_node_name, end_node_name):
         if start_node_name not in self.graph.nodes:
@@ -14,10 +13,9 @@ class BFS(SuperTraverser):
         traversal_result = []
 
         while queue:
-            self.visits+=1
             current_node_name = queue.pop(0)
             if (current_node_name == end_node_name):
-                return self.visits
+                return traversal_result
             if current_node_name not in visited:
                 traversal_result.append(current_node_name)
                 visited.add(current_node_name)
@@ -26,4 +24,4 @@ class BFS(SuperTraverser):
                     if neighbor.name not in visited:
                         queue.append(neighbor.name)
 
-        return self.visits
+        return traversal_result
