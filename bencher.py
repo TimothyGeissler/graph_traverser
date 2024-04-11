@@ -22,6 +22,21 @@ def visualize_graph_traversal(graph, traversal_result):
     plt.show()
 
 
+def visualize_graph(graph):
+    G = nx.Graph()
+    for node_name, node in graph.nodes.items():
+        G.add_node(node_name)
+        for neighbor in node.neighbors:
+            G.add_edge(node_name, neighbor.name)
+
+    pos = nx.spring_layout(G)
+    plt.figure(figsize=(8, 6))
+    nx.draw(G, pos, with_labels=True, node_color='skyblue', node_size=1500, edge_color='black', linewidths=1,
+            font_size=15, arrows=False)
+    plt.title('Graph Visualization')
+    plt.show()
+
+
 if __name__ == "__main__":
     # Example graph setup
     graph = Graph()
@@ -42,10 +57,18 @@ if __name__ == "__main__":
     bfs_traversal = BFS(graph)
     bfs_result = bfs_traversal.traverse("A", "C")
     print("BFS Traversal:", bfs_result)
-    visualize_graph_traversal(graph, bfs_result)
+    #visualize_graph_traversal(graph, bfs_result)
 
     # Using DFS traversal
     dfs_traversal = DFS(graph)
     dfs_result = dfs_traversal.traverse("A", "C")
     print("DFS Traversal:", dfs_traversal.traverse("A", "C"))
-    visualize_graph_traversal(graph, dfs_result)
+    #visualize_graph_traversal(graph, dfs_result)
+
+    mat = [[0, 1, 1, 0],
+           [0, 0, 0, 1],
+           [0, 1, 0, 0],
+           [0, 0, 0, 0]]
+    adj_graph = Graph(mat)
+    print(adj_graph.nodes)
+    visualize_graph(adj_graph)
