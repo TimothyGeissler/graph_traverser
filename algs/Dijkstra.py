@@ -39,7 +39,6 @@ class Dijkstra(SuperTraverser):
                     previous[neighbor] = current_node
                     heapq.heappush(nodes_dist, (potential_distance, neighbor))
         # Rewrites the path from end node to start node
-        #print("previous=" + str(previous))
         path = []
         current = end_node_name
         while current is not None:
