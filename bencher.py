@@ -1,6 +1,7 @@
 from algs.DFS import DFS
 from algs.BFS import BFS
 from graph import Graph, Node
+from algs.Djikstra import Djikstra
 
 import matplotlib.pyplot as plt
 import networkx as nx
@@ -105,16 +106,23 @@ if __name__ == "__main__":
     node2 = Node("B")
     node3 = Node("C")
     node4 = Node("D")
+    node5 = Node("E")
+    node6 = Node("F")
     graph.add_node(node1)
     graph.add_node(node2)
     graph.add_node(node3)
     graph.add_node(node4)
+    graph.add_node(node5)
+    graph.add_node(node6)
     graph.add_edge("A", "B")
     graph.add_edge("A", "C")
+    graph.add_edge("B", "C")
     graph.add_edge("B", "D")
-    graph.add_edge("C", "D")
+    graph.add_edge("B", "F")
+    graph.add_edge("C", "E")
+    graph.add_edge("D", "E")
+    graph.add_edge("E", "F")
 
-    # Using BFS traversal
     bfs_traversal = BFS(graph)
     bfs_result = bfs_traversal.traverse("A", "C")
     # print("BFS Traversal:", bfs_result)
@@ -125,6 +133,10 @@ if __name__ == "__main__":
     dfs_result = dfs_traversal.traverse("A", "C")
     # print("DFS Traversal:", dfs_traversal.traverse("A", "C"))
     # visualize_graph(graph, dfs_result)
+    
+    # using Dijkstras Traversal
+    dji_traversal = Djikstra(graph)
+    print("Dji Traversal:", dji_traversal.traverse("A", "F"))
 
     # mat = [[0, 1, 1, 0],
     #        [0, 0, 0, 1],
@@ -135,4 +147,4 @@ if __name__ == "__main__":
     # visualize_graph(adj_graph)
 
     performance_plot('DFS')
-    performance_plot('BFS')
+   

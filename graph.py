@@ -72,6 +72,8 @@ class Graph:
         dfs_util(start_node_name)
         return traversal_result
 
+    def get_nodes(self):
+        return list(self.nodes)
 
 class Node:
     def __init__(self, name):
