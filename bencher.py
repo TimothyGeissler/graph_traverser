@@ -1,7 +1,7 @@
 from algs.DFS import DFS
 from algs.BFS import BFS
 from graph import Graph, Node
-from algs.Djikstra import Djikstra
+from algs.Dijkstra import Dijkstra
 
 import matplotlib.pyplot as plt
 import networkx as nx
@@ -65,7 +65,8 @@ def measure_average_runtime(alg, n_values, num_iterations, seed=None):
                 DFS(adj_graph).traverse("Node_1", "Node_100")
             elif alg == 'BFS':
                 BFS(adj_graph).traverse("Node_1", "Node_100")
-            #else if alg == 'Dijkstras':
+            elif alg == 'Dijkstra':
+                Dijkstra(adj_graph).traverse("Node_1", "Node_100")
 
             end_time = time.time()
 
@@ -135,8 +136,8 @@ if __name__ == "__main__":
     # visualize_graph(graph, dfs_result)
     
     # using Dijkstras Traversal
-    dji_traversal = Djikstra(graph)
-    print("Dji Traversal:", dji_traversal.traverse("A", "F"))
+    dij_traversal = Dijkstra(graph)
+    print("Dijkstra Traversal:", dij_traversal.traverse("A", "F"))
 
     # mat = [[0, 1, 1, 0],
     #        [0, 0, 0, 1],
@@ -146,5 +147,6 @@ if __name__ == "__main__":
     # print(adj_graph.nodes)
     # visualize_graph(adj_graph)
 
-    performance_plot('DFS')
+    #performance_plot('DFS')
+    performance_plot("Dijkstra")
    
