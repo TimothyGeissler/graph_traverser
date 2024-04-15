@@ -66,7 +66,7 @@ def measure_average_runtime(alg, n_values, num_iterations, seed=None):
             elif alg == 'BFS':
                 BFS(adj_graph).traverse("Node_1", "Node_100")
             elif alg == 'Dijkstra':
-                Dijkstra(adj_graph).traverse("Node_1", "Node_100")
+                Dijkstra(adj_graph).traverse("Node_1", "Node_99")
 
             end_time = time.time()
 
