@@ -14,6 +14,7 @@ Each of the implementations should inherit from the same superclass (```SuperTra
 ## Benches
 The bencher class relies on inheritance to run the same benchset on all implementations. Uses matplotlib to render graphs of relenvant data
 
+* ```performance_plot('DFS')``` runs a scalability benchmark on a given algorithm implementation and returns a runtime vs. graph size plot
 
 TODO:
 - Cartesian Nodes

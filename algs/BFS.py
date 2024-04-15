@@ -1,5 +1,6 @@
 from algs.SuperTraverser import SuperTraverser
 
+
 class BFS(SuperTraverser):
     def __init__(self, graph):
         super().__init__(graph)
@@ -14,7 +15,7 @@ class BFS(SuperTraverser):
 
         while queue:
             current_node_name = queue.pop(0)
-            if (current_node_name == end_node_name):
+            if current_node_name == end_node_name:
                 return traversal_result
             if current_node_name not in visited:
                 traversal_result.append(current_node_name)
