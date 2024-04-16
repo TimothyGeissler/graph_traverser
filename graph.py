@@ -1,8 +1,10 @@
 class Graph:
-    def __init__(self, adjacency_matrix=None):
+    def __init__(self, adjacency_matrix=None, coordinates=None):
         self.nodes = {}
         if adjacency_matrix is not None:
             self.construct_graph_from_matrix(adjacency_matrix)
+        if coordinates is not None:
+            self.set_coordinates(coordinates)
 
     def construct_graph_from_matrix(self, adjacency_matrix):
         num_nodes = len(adjacency_matrix)
@@ -18,6 +20,16 @@ class Graph:
                     node2_name = f"Node_{j}"
                     # print("Added edge from " + str(i) + "->" + str(j))
                     self.add_edge(node1_name, node2_name)
+
+    # Add coords to graph
+    def set_coordinates(self, coordinates):
+        if len(coordinates) != len(self.nodes):
+            raise ValueError("Number of coordinates does not match the number of nodes")
+        for i, (x, y) in enumerate(coordinates):
+            node_name = f"Node_{i}"
+            if node_name in self.nodes:
+                self.nodes[node_name].x = x
+                self.nodes[node_name].y = y
 
     def add_node(self, node, x=None, y=None):
         if isinstance(node, Node) and node.name not in self.nodes:
