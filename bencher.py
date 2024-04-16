@@ -165,12 +165,12 @@ if __name__ == "__main__":
     # visualize_graph(graph, dijkstra_path[1])
 
     # More complex Dijkstras traversal visualisation
-    # cmplx_mat = gen_adj_matrix(50, 0.05, 42)
-    # cmplx_graph = Graph(cmplx_mat)
-    # d_cmplx = Dijkstra(cmplx_graph)
-    # dijkstra_path = d_cmplx.traverse("Node_1", "Node_4")
-    # print("Complex path = " + str(dijkstra_path))
-    # visualize_graph(cmplx_graph, dijkstra_path[1])
+    cmplx_mat = gen_adj_matrix(50, 0.05, 42)
+    cmplx_graph = Graph(cmplx_mat)
+    d_cmplx = Dijkstra(cmplx_graph)
+    dijkstra_path = d_cmplx.traverse("Node_1", "Node_4")
+    print("Complex path = " + str(dijkstra_path))
+    visualize_graph(cmplx_graph, dijkstra_path[1])
 
     # mat = [[0, 1, 1, 0],
     #        [0, 0, 0, 1],
@@ -180,5 +180,5 @@ if __name__ == "__main__":
     # print(adj_graph.nodes)
     # visualize_graph(adj_graph)
 
-    performance_plot('DFS')
-    performance_plot("Dijkstra")
+    #performance_plot('DFS')
+    #performance_plot("Dijkstra")

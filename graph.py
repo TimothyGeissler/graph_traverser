@@ -6,7 +6,7 @@ class Graph:
 
     def construct_graph_from_matrix(self, adjacency_matrix):
         num_nodes = len(adjacency_matrix)
-        #print("constructing from " + str(num_nodes) + "x" + str(num_nodes) + " matrix")
+        # print("constructing from " + str(num_nodes) + "x" + str(num_nodes) + " matrix")
         for i in range(num_nodes):
             node_name = f"Node_{i}"
             self.nodes[node_name] = Node(node_name)
@@ -16,11 +16,13 @@ class Graph:
                 if adjacency_matrix[i][j] == 1:
                     node1_name = f"Node_{i}"
                     node2_name = f"Node_{j}"
-                    #print("Added edge from " + str(i) + "->" + str(j))
+                    # print("Added edge from " + str(i) + "->" + str(j))
                     self.add_edge(node1_name, node2_name)
 
-    def add_node(self, node):
+    def add_node(self, node, x=None, y=None):
         if isinstance(node, Node) and node.name not in self.nodes:
+            node.x = x
+            node.y = y
             self.nodes[node.name] = node
             return True
         else:
@@ -75,10 +77,13 @@ class Graph:
     def get_nodes(self):
         return list(self.nodes)
 
+
 class Node:
-    def __init__(self, name):
+    def __init__(self, name, x=None, y=None):
         self.name = name
         self.neighbors = []
+        self.x = x
+        self.y = y
 
     def add_neighbor(self, neighbor):
         if neighbor not in self.neighbors:
