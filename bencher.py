@@ -67,13 +67,13 @@ def gen_adj_matrix(n, edge_probability=0.1, seed=None):
     return adjacency_matrix
 
 
-def measure_average_runtime(alg, n_values, num_iterations, seed=None):
+def measure_average_runtime(alg, n_values, num_iterations, edge_probability, seed=None):
     average_runtimes = []
     for n in n_values:
         runtimes = []
         for _ in range(num_iterations):
             # Generate adjacency matrix for size n with fixed seed
-            adjacency_matrix = gen_adj_matrix(n, seed)
+            adjacency_matrix = gen_adj_matrix(n, edge_probability, seed)
 
             # Create graph object
             adj_graph = Graph(adjacency_matrix)
@@ -101,10 +101,13 @@ def performance_plot(alg, start=100, end=1001, count=5, iterations=5):
     increment = (start - end) / count
     n_values = list(range(start, end, 200))
 
+    # Density of graph
+    edge_probability = 0.1
+
     # Number of iterations for averaging runtime
 
     # Measure average runtime and standard deviation for each n with fixed seed
-    average_runtimes = measure_average_runtime(alg, n_values, iterations, seed=42)
+    average_runtimes = measure_average_runtime(alg, n_values, iterations, edge_probability, seed=42)
 
     # Extract n, average runtime, and standard deviation values for plotting
     n_values, runtime_values, std_values = zip(*average_runtimes)
@@ -113,7 +116,7 @@ def performance_plot(alg, start=100, end=1001, count=5, iterations=5):
     plt.figure(figsize=(10, 6))
     # plt.errorbar(n_values, runtime_values, yerr=std_values, fmt='o', color='b', ecolor='r', linestyle='-')
     plt.plot(n_values, runtime_values, marker='o', linestyle='-', color='b')
-    plt.title('Average Runtime of ' + alg + ' Traversal vs. Graph Size (n)')
+    plt.title('Average Runtime of ' + alg + ' Traversal vs. Graph Size (n) - Graph density=' + str(edge_probability))
     plt.xlabel('Graph Size (n)')
     plt.ylabel('Average Runtime (seconds)')
     plt.grid(True)
@@ -162,12 +165,12 @@ if __name__ == "__main__":
     # visualize_graph(graph, dijkstra_path[1])
 
     # More complex Dijkstras traversal visualisation
-    cmplx_mat = gen_adj_matrix(50, 0.05, 42)
-    cmplx_graph = Graph(cmplx_mat)
-    d_cmplx = Dijkstra(cmplx_graph)
-    dijkstra_path = d_cmplx.traverse("Node_1", "Node_4")
-    print("Complex path = " + str(dijkstra_path))
-    visualize_graph(cmplx_graph, dijkstra_path[1])
+    # cmplx_mat = gen_adj_matrix(50, 0.05, 42)
+    # cmplx_graph = Graph(cmplx_mat)
+    # d_cmplx = Dijkstra(cmplx_graph)
+    # dijkstra_path = d_cmplx.traverse("Node_1", "Node_4")
+    # print("Complex path = " + str(dijkstra_path))
+    # visualize_graph(cmplx_graph, dijkstra_path[1])
 
     # mat = [[0, 1, 1, 0],
     #        [0, 0, 0, 1],
@@ -177,5 +180,5 @@ if __name__ == "__main__":
     # print(adj_graph.nodes)
     # visualize_graph(adj_graph)
 
-    # performance_plot('DFS')
-    # performance_plot("Dijkstra")
+    performance_plot('DFS')
+    performance_plot("Dijkstra")
