@@ -21,6 +21,10 @@ def visualize_graph(graph, traversal_result=None):
             G.add_edge(node_name, neighbor.name)
 
     pos = nx.spring_layout(G)
+    if all(node.x is not None and node.y is not None for node in graph.nodes.values()):
+        # If nodes have coordinates, use them for positioning
+        pos = {node_name: (node.x, node.y) for node_name, node in graph.nodes.items()}
+
     plt.figure(figsize=(8, 6))
 
     default_node_size = 1500
