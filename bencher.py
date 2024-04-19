@@ -171,13 +171,11 @@ def performance_plot(alg, start=100, end=1001, count=5, iterations=5):
     plt.show()
 
 
-def efficiency_plot(alg, start=100, end=1001, count=5, iterations=5):
+def efficiency_plot(alg, start=100, end=1001, count=5, iterations=5, density=0.1):
     print("Running efficiency analysis on " + alg)
     n_values = list(range(start, end, 200))
-    # Density of graph
-    edge_probability = 0.1
 
-    average_eff = measure_average_efficiency(alg, n_values, iterations, edge_probability, seed=42)
+    average_eff = measure_average_efficiency(alg, n_values, iterations, density, seed=42)
 
     # Extract n, average runtime, and standard deviation values for plotting
     n_values, eff_values, std_values = zip(*average_eff)
@@ -186,7 +184,7 @@ def efficiency_plot(alg, start=100, end=1001, count=5, iterations=5):
     plt.figure(figsize=(10, 6))
     # plt.errorbar(n_values, runtime_values, yerr=std_values, fmt='o', color='b', ecolor='r', linestyle='-')
     plt.plot(n_values, eff_values, marker='o', linestyle='-', color='b')
-    plt.title('Average Efficiency of ' + alg + ' Traversal vs. Graph Size (n) - Graph density=' + str(edge_probability))
+    plt.title('Average Efficiency of ' + alg + ' Traversal vs. Graph Size (n) - Graph density=' + str(density))
     plt.xlabel('Graph Size (n)')
     plt.ylabel('Path Length / # of Visits')
     plt.grid(True)
@@ -243,17 +241,17 @@ if __name__ == "__main__":
     # visualize_graph(cmplx_graph, dijkstra_path[1])
 
     # More complex A* traversal visualisation
-    cmplx_mat = gen_adj_matrix(50, 0.1, 42)
-    coords = gen_cartesian_coords(50, 100, 100)
-    print("Adj matrix:" + str(cmplx_mat))
-    print("coords: " + str(len(coords)) + " \t" + str(coords))
-
-    cmplx_graph = Graph(cmplx_mat, coords)
-    print("Graph=" + str(cmplx_graph.nodes))
-    d_cmplx = AStar(cmplx_graph)
-    dijkstra_path = d_cmplx.traverse("Node_1", "Node_38")
-    print("Complex path = " + str(dijkstra_path))
-    visualize_graph(cmplx_graph, dijkstra_path[1])
+    # cmplx_mat = gen_adj_matrix(50, 0.1, 42)
+    # coords = gen_cartesian_coords(50, 100, 100)
+    # print("Adj matrix:" + str(cmplx_mat))
+    # print("coords: " + str(len(coords)) + " \t" + str(coords))
+    #
+    # cmplx_graph = Graph(cmplx_mat, coords)
+    # print("Graph=" + str(cmplx_graph.nodes))
+    # d_cmplx = DFS(cmplx_graph)
+    # dijkstra_path = d_cmplx.traverse("Node_1", "Node_38")
+    # print("Complex path = " + str(dijkstra_path))
+    # visualize_graph(cmplx_graph, dijkstra_path[1])
 
     # mat = [[0, 1, 1, 0],
     #        [0, 0, 0, 1],
@@ -265,5 +263,5 @@ if __name__ == "__main__":
 
     # performance_plot('DFS')
     # performance_plot("Dijkstra")
-    # efficiency_plot("DFS")
-    efficiency_plot("Astar")
+    efficiency_plot("DFS", density=0.01)
+    #efficiency_plot("Astar")

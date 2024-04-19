@@ -75,4 +75,4 @@ class AStar(SuperTraverser):
 
             # Return the shortest distance and the path as a tuple
             print(shortest_dist)
-            return shortest_dist[end_node_name], path
+            return shortest_dist[end_node_name], path, explored_nodes
