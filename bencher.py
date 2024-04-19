@@ -109,6 +109,37 @@ def measure_average_runtime(alg, n_values, num_iterations, edge_probability, see
     return average_runtimes
 
 
+def measure_average_efficiency(alg, n_values, num_iterations, edge_probability, seed=None):
+    average_eff = []
+    for n in n_values:
+        efficiency = []
+        for _ in range(num_iterations):
+            # Generate adjacency matrix for size n with fixed seed
+            adjacency_matrix = gen_adj_matrix(n, edge_probability, seed)
+
+            # Create graph object
+            adj_graph = Graph(adjacency_matrix)
+
+            visited = []
+            path = []
+            path_len = 0
+
+            if alg == 'DFS':
+                path_len, path, visited = DFS(adj_graph).traverse("Node_1", "Node_100")
+            elif alg == 'BFS':
+                path_len, path, visited = BFS(adj_graph).traverse("Node_1", "Node_100")
+            elif alg == 'Dijkstra':
+                path_len, path, visited = Dijkstra(adj_graph).traverse("Node_1", "Node_99")
+            elif alg == "A_Star":
+                # Generate coords
+                # Run A*
+                return
+
+            efficiency.append(len(path) / len(visited))
+        average_eff.append((n, np.mean(efficiency), np.std(efficiency)))
+    return average_eff
+
+
 def performance_plot(alg, start=100, end=1001, count=5, iterations=5):
     # Generate n values from 100 to 1000 in increments of 50
     print("Running performance analysis on " + alg)
@@ -133,6 +164,28 @@ def performance_plot(alg, start=100, end=1001, count=5, iterations=5):
     plt.title('Average Runtime of ' + alg + ' Traversal vs. Graph Size (n) - Graph density=' + str(edge_probability))
     plt.xlabel('Graph Size (n)')
     plt.ylabel('Average Runtime (seconds)')
+    plt.grid(True)
+    plt.show()
+
+
+def efficiency_plot(alg, start=100, end=1001, count=5, iterations=5):
+    print("Running efficiency analysis on " + alg)
+    n_values = list(range(start, end, 200))
+    # Density of graph
+    edge_probability = 0.1
+
+    average_eff = measure_average_efficiency(alg, n_values, iterations, edge_probability, seed=42)
+
+    # Extract n, average runtime, and standard deviation values for plotting
+    n_values, eff_values, std_values = zip(*average_eff)
+
+    # Plotting
+    plt.figure(figsize=(10, 6))
+    # plt.errorbar(n_values, runtime_values, yerr=std_values, fmt='o', color='b', ecolor='r', linestyle='-')
+    plt.plot(n_values, eff_values, marker='o', linestyle='-', color='b')
+    plt.title('Average Efficiency of ' + alg + ' Traversal vs. Graph Size (n) - Graph density=' + str(edge_probability))
+    plt.xlabel('Graph Size (n)')
+    plt.ylabel('Path Length / # of Visits')
     plt.grid(True)
     plt.show()
 
@@ -192,11 +245,12 @@ if __name__ == "__main__":
     print("Adj matrix:" + str(cmplx_mat))
     print("coords: " + str(len(coords)) + " \t" + str(coords))
 
-    cmplx_graph = Graph(cmplx_mat, coords)
-    d_cmplx = Dijkstra(cmplx_graph)
-    dijkstra_path = d_cmplx.traverse("Node_1", "Node_4")
+    cmplx_graph = Graph(cmplx_mat)
+    print("Graph=" + str(cmplx_graph.nodes))
+    d_cmplx = DFS(cmplx_graph)
+    dijkstra_path = d_cmplx.traverse("Node_1", "Node_8")
     print("Complex path = " + str(dijkstra_path))
-    visualize_graph(cmplx_graph)
+    visualize_graph(cmplx_graph, dijkstra_path[1])
 
     # mat = [[0, 1, 1, 0],
     #        [0, 0, 0, 1],
@@ -208,3 +262,4 @@ if __name__ == "__main__":
 
     # performance_plot('DFS')
     # performance_plot("Dijkstra")
+    # efficiency_plot("DFS")

@@ -10,16 +10,22 @@ class DFS(SuperTraverser):
             return None
 
         visited = set()
-        traversal_result = []
+        path = []
 
         def dfs_util(node_name):
+            print("\tVisiting: " + node_name)
             visited.add(node_name)
-            traversal_result.append(node_name)
-            if node_name == end_node_name:
-                return traversal_result
+            path.append(node_name)
+            if node_name == end_node_name:  # Found end of path
+                print("\tReached dest: " + node_name + "=" + end_node_name)
+                return len(path), path, visited  # path len, path, visited
+            print("\tChecking neighbours=" + str(self.graph.nodes[node_name].neighbors))
             for neighbor in self.graph.nodes[node_name].neighbors:
                 if neighbor.name not in visited:
+                    print("\tUnvisited neighbour=" + neighbor.name)
                     dfs_util(neighbor.name)
+                else:
+                    path.pop()
 
         dfs_util(start_node_name)
-        return traversal_result
+        return len(path), path, visited  # path len, path, visited

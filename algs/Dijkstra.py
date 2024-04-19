@@ -9,6 +9,7 @@ class Dijkstra(SuperTraverser):
 
     def traverse(self, start_node_name, end_node_name):
         nodes_dist = []
+        visited = []
         # Setting the distances dictionary with default infinity value for all notes
         distances = {node: sys.maxsize for node in self.graph.get_nodes()}
         # Set distances for start node to - and push it into the nodes_dist category we created
@@ -18,6 +19,7 @@ class Dijkstra(SuperTraverser):
 
         while nodes_dist:
             current_distance, current_node = heapq.heappop(nodes_dist)
+            visited.append(current_node)
 
             # if end node, stop processing
             if current_node == end_node_name:
@@ -46,4 +48,4 @@ class Dijkstra(SuperTraverser):
             current = previous[current]
 
         # Return the shortest distance and the path as a tuple
-        return distances[end_node_name], path
+        return distances[end_node_name], path, visited #path len, path, visited
