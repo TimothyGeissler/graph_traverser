@@ -105,6 +105,14 @@ def measure_average_runtime(alg, n_values, num_iterations, edge_probability, see
 
             end_time = time.time()
 
+            if alg == 'Astar':
+                start_time = time.time()
+                coords = gen_cartesian_coords(n, 100, 100)
+                coords_graph = Graph(adjacency_matrix, coords)
+
+                AStar(coords_graph).traverse("Node_1", "Node_99")
+                end_time = time.time()
+
             runtimes.append(end_time - start_time)
         average_runtimes.append((n, np.mean(runtimes), np.std(runtimes)))
     return average_runtimes
