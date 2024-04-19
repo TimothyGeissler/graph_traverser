@@ -171,13 +171,12 @@ def performance_plot(alg, start=100, end=1001, count=5, iterations=5):
     plt.show()
 
 
-def efficiency_plot(alg, start=100, end=1001, count=5, iterations=5):
+def efficiency_plot(alg, start=100, end=1001, count=5, iterations=5, density=0.1):
     print("Running efficiency analysis on " + alg)
     n_values = list(range(start, end, 200))
     # Density of graph
-    edge_probability = 0.1
 
-    average_eff = measure_average_efficiency(alg, n_values, iterations, edge_probability, seed=42)
+    average_eff = measure_average_efficiency(alg, n_values, iterations, density, seed=42)
 
     # Extract n, average runtime, and standard deviation values for plotting
     n_values, eff_values, std_values = zip(*average_eff)
@@ -186,7 +185,7 @@ def efficiency_plot(alg, start=100, end=1001, count=5, iterations=5):
     plt.figure(figsize=(10, 6))
     # plt.errorbar(n_values, runtime_values, yerr=std_values, fmt='o', color='b', ecolor='r', linestyle='-')
     plt.plot(n_values, eff_values, marker='o', linestyle='-', color='b')
-    plt.title('Average Efficiency of ' + alg + ' Traversal vs. Graph Size (n) - Graph density=' + str(edge_probability))
+    plt.title('Average Efficiency of ' + alg + ' Traversal vs. Graph Size (n) - Graph density=' + str(density))
     plt.xlabel('Graph Size (n)')
     plt.ylabel('Path Length / # of Visits')
     plt.grid(True)
