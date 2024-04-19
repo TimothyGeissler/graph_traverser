@@ -133,8 +133,10 @@ def measure_average_efficiency(alg, n_values, num_iterations, edge_probability, 
                 path_len, path, visited = Dijkstra(adj_graph).traverse("Node_1", "Node_99")
             elif alg == "A_Star":
                 # Generate coords
+                coords = gen_cartesian_coords(n, 100, 100)
+                coords_graph = Graph(adjacency_matrix, coords)
                 # Run A*
-                return
+                path_len, path, visited = AStar(coords_graph).traverse("Node_1", "Node_99")
 
             efficiency.append(len(path) / len(visited))
         average_eff.append((n, np.mean(efficiency), np.std(efficiency)))
@@ -241,15 +243,15 @@ if __name__ == "__main__":
     # visualize_graph(cmplx_graph, dijkstra_path[1])
 
     # More complex A* traversal visualisation
-    cmplx_mat = gen_adj_matrix(10, 0.1, 42)
-    coords = gen_cartesian_coords(10, 100, 100)
+    cmplx_mat = gen_adj_matrix(50, 0.1, 42)
+    coords = gen_cartesian_coords(50, 100, 100)
     print("Adj matrix:" + str(cmplx_mat))
     print("coords: " + str(len(coords)) + " \t" + str(coords))
 
     cmplx_graph = Graph(cmplx_mat, coords)
     print("Graph=" + str(cmplx_graph.nodes))
     d_cmplx = AStar(cmplx_graph)
-    dijkstra_path = d_cmplx.traverse("Node_1", "Node_8")
+    dijkstra_path = d_cmplx.traverse("Node_1", "Node_38")
     print("Complex path = " + str(dijkstra_path))
     visualize_graph(cmplx_graph, dijkstra_path[1])
 
@@ -264,3 +266,4 @@ if __name__ == "__main__":
     # performance_plot('DFS')
     # performance_plot("Dijkstra")
     # efficiency_plot("DFS")
+    efficiency_plot("Astar")
