@@ -2,6 +2,7 @@ from algs.DFS import DFS
 from algs.BFS import BFS
 from graph import Graph, Node
 from algs.Dijkstra import Dijkstra
+from algs.Astar import AStar
 
 import matplotlib.pyplot as plt
 import networkx as nx
@@ -245,9 +246,9 @@ if __name__ == "__main__":
     print("Adj matrix:" + str(cmplx_mat))
     print("coords: " + str(len(coords)) + " \t" + str(coords))
 
-    cmplx_graph = Graph(cmplx_mat)
+    cmplx_graph = Graph(cmplx_mat, coords)
     print("Graph=" + str(cmplx_graph.nodes))
-    d_cmplx = DFS(cmplx_graph)
+    d_cmplx = AStar(cmplx_graph)
     dijkstra_path = d_cmplx.traverse("Node_1", "Node_8")
     print("Complex path = " + str(dijkstra_path))
     visualize_graph(cmplx_graph, dijkstra_path[1])
