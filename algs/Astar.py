@@ -33,6 +33,9 @@ class AStar(SuperTraverser):
                 # Pop node with lowest estimated total cost
                 estimated_total_cost, current_node, current_distance = \
                     heapq.heappop(unexplored_nodes)
+                # Add current node to set of explored nodes
+                explored_nodes.add(current_node)
+
                 # If we reach the end node, we stop the search
                 if current_node == end_node_name:
                     break
@@ -74,5 +77,4 @@ class AStar(SuperTraverser):
                 current = previous_nodes[current]
 
             # Return the shortest distance and the path as a tuple
-            print(shortest_dist)
             return shortest_dist[end_node_name], path, explored_nodes

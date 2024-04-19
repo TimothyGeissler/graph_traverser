@@ -131,7 +131,7 @@ def measure_average_efficiency(alg, n_values, num_iterations, edge_probability, 
                 path_len, path, visited = BFS(adj_graph).traverse("Node_1", "Node_100")
             elif alg == 'Dijkstra':
                 path_len, path, visited = Dijkstra(adj_graph).traverse("Node_1", "Node_99")
-            elif alg == "A_Star":
+            elif alg == "Astar":
                 # Generate coords
                 coords = gen_cartesian_coords(n, 100, 100)
                 coords_graph = Graph(adjacency_matrix, coords)
@@ -171,11 +171,13 @@ def performance_plot(alg, start=100, end=1001, count=5, iterations=5):
     plt.show()
 
 
-def efficiency_plot(alg, start=100, end=1001, count=5, iterations=5, density=0.1):
+def efficiency_plot(alg, start=100, end=1001, count=5, iterations=5):
     print("Running efficiency analysis on " + alg)
     n_values = list(range(start, end, 200))
+    # Density of graph
+    edge_probability = 0.1
 
-    average_eff = measure_average_efficiency(alg, n_values, iterations, density, seed=42)
+    average_eff = measure_average_efficiency(alg, n_values, iterations, edge_probability, seed=42)
 
     # Extract n, average runtime, and standard deviation values for plotting
     n_values, eff_values, std_values = zip(*average_eff)
@@ -184,7 +186,7 @@ def efficiency_plot(alg, start=100, end=1001, count=5, iterations=5, density=0.1
     plt.figure(figsize=(10, 6))
     # plt.errorbar(n_values, runtime_values, yerr=std_values, fmt='o', color='b', ecolor='r', linestyle='-')
     plt.plot(n_values, eff_values, marker='o', linestyle='-', color='b')
-    plt.title('Average Efficiency of ' + alg + ' Traversal vs. Graph Size (n) - Graph density=' + str(density))
+    plt.title('Average Efficiency of ' + alg + ' Traversal vs. Graph Size (n) - Graph density=' + str(edge_probability))
     plt.xlabel('Graph Size (n)')
     plt.ylabel('Path Length / # of Visits')
     plt.grid(True)
@@ -263,5 +265,5 @@ if __name__ == "__main__":
 
     # performance_plot('DFS')
     # performance_plot("Dijkstra")
-    efficiency_plot("DFS", density=0.01)
-    #efficiency_plot("Astar")
+    # efficiency_plot("DFS", density=0.01)
+    efficiency_plot("Astar")
