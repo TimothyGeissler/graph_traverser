@@ -24,8 +24,7 @@ class DFS(SuperTraverser):
                 if neighbor.name not in visited:
                     print("\tUnvisited neighbour=" + neighbor.name)
                     dfs_util(neighbor.name)
-                else:
-                    path.pop()
+
 
         dfs_util(start_node_name)
         return len(path), path, visited  # path len, path, visited

@@ -45,6 +45,7 @@ class Graph:
             node1 = self.nodes[node1_name]
             node2 = self.nodes[node2_name]
             node1.add_neighbor(node2)
+            node2.add_neighbor(node1)
             return True
         else:
             return False
