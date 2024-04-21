@@ -14,16 +14,11 @@ Each of the implementations should inherit from the same superclass (```SuperTra
 
 * ```DFS()``` performs a depth-first search on the given graph until the destination node is reached, and returns the path used to reach the destination.
 * ```Dijkstra()``` uses Dijkstra's Algorithm to return the shortest path between given nodes, as well as the path length
+* ```A*()``` uses the A* algorithm based on a Euclidean distance heuristic to improve efficiency over Dijkstras.
+
 ## Benches
 The bencher class relies on inheritance to run the same benchset on all implementations. Uses matplotlib to render graphs of relevant data
 
 * ```performance_plot('DFS')``` runs a scalability benchmark on a given algorithm implementation and returns a runtime vs. graph size plot
-
-TODO:
-- Visualization of Cartesian Nodes (A*)
-- Implement more tests/plots
-  - efficiency
-
-
-
-- A*
+* ```efficiency_plot('Dijkstra')``` runs an efficiency benchmark on a given algorithm implementation and returns a plot of (path length) / (# of visited nodes) vs. graph size
+* ```visualize_graph()``` is a useful graph visualization tool to show graphs and traversal paths
